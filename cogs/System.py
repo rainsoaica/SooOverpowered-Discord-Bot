@@ -220,6 +220,15 @@ class System(commands.Cog, name='System'):
                 ),
                 delete_after=10
             )
+            
+    @commands.command(
+        name='restart',
+        description='Force restart the bot',
+        usage='`.restart'
+    )
+    @commands.is_owner()
+    async def restart(self,ctx):
+        os._exit(0)
 
     # Error handler
     @reload.error
@@ -367,6 +376,8 @@ class System(commands.Cog, name='System'):
         guildcol.delete_one({'guild_id': guild.id})
         queuecol.delete_many({'guild_id': guild.id})
         playlistcol.delete_many({'guild_id': guild.id})
+
+
 '''
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -379,6 +390,7 @@ class System(commands.Cog, name='System'):
             )
             await ctx.message.delete()
 '''
+
 
 def setup(client):
     client.add_cog(System(client))
